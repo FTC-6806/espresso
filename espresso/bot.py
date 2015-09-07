@@ -4,6 +4,8 @@ import re
 
 from slackclient import SlackClient
 
+from repl import EspressoConsole
+
 class Espresso(object):
     """The bot's main class.
     Handles connections and all the things.
@@ -31,6 +33,10 @@ class Espresso(object):
 
         logging.info("starting the bot")
         self.connect()
+
+        if self.config['debug_console']:
+            espresso_console = EspressoConsole(locals())
+            espresso_console.interact()
 
         while True:
             for reply in self.slack_client.rtm_read():

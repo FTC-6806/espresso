@@ -10,6 +10,7 @@ class Espresso(object):
     """The bot's main class.
     Handles connections and all the things.
     Delegates to plugin files.
+    The plugin API is also implemented on the bot, they're all decorators.
     """
 
     def __init__(self, config):
@@ -44,3 +45,18 @@ class Espresso(object):
             # TODO: take loaded list of plugin callback regexes and check them, then call the callbacks
             time.sleep(.1)
 
+    def self.add_listener(ltype, regex, function, **options):
+        logging.debug("Add listener of type %s with regex %s calling %s", ltype.__name__, regex, function.__name__)
+
+
+    def hear(self, regex, **options):
+        def decorator(f):
+            self.add_listener(HEARD, regex, f, **options)
+            return f
+        return decorator
+
+    def respond(self, regex, **options):
+        def decorator(f):
+            self.add_listener(HEARD_WITH_NAME, regex, f, **options)
+            return f
+        return decorator

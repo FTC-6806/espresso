@@ -2,6 +2,8 @@ from argparse import ArgumentParser
 import yaml
 import logging
 
+from bot import Espresso
+
 def parse_args():
     parser = ArgumentParser()
     parser.add_argument(
@@ -17,6 +19,11 @@ def main():
     config = yaml.load(file(args.config or 'botconfig.yaml', 'r'))
     logging.basicConfig(level=getattr(logging, config['logging']['level']), format="%(levelname)s from %(filename)s at %(asctime)s | %(message)s")
     logging.debug(config)
+
+
+    bot.brew()
+
+
 
 if __name__ == '__main__':
     main()

@@ -1,2 +1,5 @@
 debug: true
-apitoken: 'foobar'
+debug_console: false
+logging:
+  level: DEBUG
+api_token: 'foobar'

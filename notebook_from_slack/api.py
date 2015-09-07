@@ -2,8 +2,8 @@ from notebook_from_slack import app
 
 @app.route('/bot_endpoint')
 def bot_endpoint():
-	return 'Hello World!'
+	"""The endpoint that Slack will hit with specific messages for us.
+	The endpoint just feeds to a db
+	"""
 
-@app.route('/logs')
-def logs():
-	return 'not implemented'
+	return 'Hello World!'

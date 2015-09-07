@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 import yaml
 import logging
+import daemon
 
 from bot import Espresso
 
@@ -20,6 +21,11 @@ def main():
     logging.basicConfig(level=getattr(logging, config['logging']['level']), format="%(levelname)s from %(filename)s at %(asctime)s | %(message)s")
     logging.debug(config)
 
+    bot = Espresso(config)
+    if config.has_key('daemonized'):
+        if config['daemonized']:
+            with daemon.DaemonContext():
+                bot.brew()
 
     bot.brew()
 

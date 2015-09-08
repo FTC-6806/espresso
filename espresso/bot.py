@@ -47,7 +47,7 @@ class Espresso(object):
             # TODO: take loaded list of plugin callback regexes and check them, then call the callbacks
             time.sleep(.1)
 
-    def self.add_listener(ltype, regex, function, **options):
+    def add_listener(ltype, regex, function, **options):
         logging.debug("Add listener of type %s with regex %s calling %s", ltype.__name__, regex, function.__name__)
 
 

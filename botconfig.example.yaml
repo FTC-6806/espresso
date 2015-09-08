@@ -5,4 +5,8 @@ logging:
 plugin_dir: plugins/
 plugins:
   - shipit
+  - brew
+  - deletemessages
+  - ping
+  - hello
 api_token: 'foobar'

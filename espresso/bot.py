@@ -29,13 +29,20 @@ class Espresso(object):
         self.slack_client = SlackClient(self.api_token)
         self.slack_client.rtm_connect() # connect to the real-time messaging system
 
+    def load_plugins(self, plugins, plugindir):
+        for plugin in plugins:
+            logging.debug('loading plugin {} from {}'.format(plugin, plugindir))
+            fh, path, desc = imp.find_module(plugin, plugindir)
+
     def brew(self):
         """Run the bot.
         Starts an infinite processing loop.
         """
 
-        logging.info("starting the bot")
+        logging.debug("starting the bot")
         self.connect()
+
+        self.load_plugins(self.config['plugins'], self.config['plugin_dir'])
 
         if self.config['debug_console']:
             espresso_console = EspressoConsole(locals())

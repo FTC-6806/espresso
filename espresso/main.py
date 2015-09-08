@@ -1,7 +1,8 @@
-from argparse import ArgumentParser
-import yaml
-import logging
 import daemon
+import logging
+import yaml
+
+from argparse import ArgumentParser
 
 from bot import Espresso
 

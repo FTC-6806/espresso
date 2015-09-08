@@ -2,4 +2,7 @@ debug: true
 debug_console: false
 logging:
   level: DEBUG
+plugin_dir: plugins/
+plugins:
+  - shipit
 api_token: 'foobar'

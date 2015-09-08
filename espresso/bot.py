@@ -32,7 +32,7 @@ class Espresso(object):
     def load_plugins(self, plugins, plugindir):
         for plugin in plugins:
             logging.debug('loading plugin {} from {}'.format(plugin, plugindir))
-            fh, path, desc = imp.find_module(plugin, plugindir)
+            fh, path, desc = imp.find_module(plugin, [plugindir])
 
     def brew(self):
         """Run the bot.

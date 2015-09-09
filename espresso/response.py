@@ -15,5 +15,5 @@ class Response(object):
 
     def reply(self, user, message, channel=None):
         channel = self.msg.channel.name or channel
-        logging.debug("message %s on channel #%s to user @%s" % (message, channel, user.name))
+        logging.debug("message %s on channel #%s to user @%s", message, channel, user.name)
         self.robot.send("@{}: {}".format(user.name, message), channel)

@@ -2,7 +2,6 @@
 # Very useful for cleaning up after testing
 # Manually interacts with Slack's API through res.robot.slack_client.api_call
 
-import random
 from espresso.main import robot
 import json
 import logging

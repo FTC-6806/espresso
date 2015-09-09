@@ -2,14 +2,14 @@
 from code import InteractiveConsole
 
 class EspressoConsole(InteractiveConsole, object):
-    def interact(self):
+    def interact(self, banner = None):
         banner = """███████╗███████╗██████╗ ██████╗ ███████╗███████╗███████╗ ██████╗ 
 ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝██╔═══██╗
 █████╗  ███████╗██████╔╝██████╔╝█████╗  ███████╗███████╗██║   ██║
 ██╔══╝  ╚════██║██╔═══╝ ██╔══██╗██╔══╝  ╚════██║╚════██║██║   ██║
 ███████╗███████║██║     ██║  ██║███████╗███████║███████║╚██████╔╝
 ╚══════╝╚══════╝╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝ 
-"""
+""" or banner
         super(EspressoConsole, self).interact(banner)
 
     def raw_input(self, prompt=''):

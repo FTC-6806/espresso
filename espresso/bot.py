@@ -67,9 +67,9 @@ class Espresso(object):
 
         while True:
             for msg in self.slack_client.rtm_read():
-                if msg.has_key('type'):
-                    if msg['type'] == 'message' and not msg.has_key('subtype'):
                 logging.debug("Raw message: %s", msg)
+                if 'type' in msg:
+                    if msg['type'] == 'message' and not 'subtype' in msg:
                         message = Message(User(msg['user'], self.slack_client.server.users.find(msg['user']).name),
                                 self.slack_client.server.channels.find(msg['channel']),
                                 msg['text'])

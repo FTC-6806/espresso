@@ -5,6 +5,7 @@ import time
 
 from slackclient import SlackClient
 
+from .brain import Brain
 from .listener import Listener
 from .listener import ListenerType
 from .message import Message
@@ -26,6 +27,7 @@ class Espresso(object):
         self.slack_client = None
         self.listeners = []
         self.user = None
+        self.brain = Brain(config['brainstate_location'])
 
     def connect(self):
         """Helper method to connect to Slack.

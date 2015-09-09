@@ -10,6 +10,6 @@
 
 </pre>
 
-[![Code Climate](https://img.shields.io/codeclimate/github/ftc-6806/espresso.svg)](https://codeclimate.com/github/FTC-6806/espresso)
+[![Code Climate](https://img.shields.io/codeclimate/github/FTC-6806/espresso.svg)](https://codeclimate.com/github/FTC-6806/espresso)
 
 ## A Simple Chatbot

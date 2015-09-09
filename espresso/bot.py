@@ -36,7 +36,7 @@ class Espresso(object):
 
         slack_test = json.loads(self.slack_client.api_call('auth.test'))
         self.user = User(slack_test['user_id'], slack_test['user'])
-        logging.info("I am @%s, id %s", self.user.name, self.user.id)
+        logging.info("I am @%s, uid %s", self.user.name, self.user.uid)
 
     def load_plugins(self, plugins, plugindir):
         if plugins is not None:

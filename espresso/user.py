@@ -1,5 +1,5 @@
 class User(object):
-    def __init__(self, id, name="?"):
-        self.id = id
+    def __init__(self, uid, name="?"):
+        self.uid = uid
         self.name = name
 

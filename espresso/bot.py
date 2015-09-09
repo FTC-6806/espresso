@@ -1,12 +1,9 @@
 import imp
-import logging
-import os
-import re
-import time
 import json
+import logging
+import time
 
 from slackclient import SlackClient
-import slackclient._channel
 
 from listener import Listener
 from listener import ListenerType

@@ -16,7 +16,7 @@ def delete_n_messages(res):
         inclusive = 1))
     channel_messages = channel_history['messages']
 
-    my_messages = filter(lambda m: m.get('type') == 'message') and ('subtype' not in m) and (m['user'] == robot.user.id), channel_messages)
+    my_messages = filter(lambda m: ((m.get('type') == 'message') and ('subtype' not in m) and (m['user'] == robot.user.id)), channel_messages)
 
     for message in itertools.islice(my_messages, howmany):
         logging.debug("deleting message with content %s", message['text'])

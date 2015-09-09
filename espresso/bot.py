@@ -41,7 +41,7 @@ class Espresso(object):
     def load_plugins(self, plugins, plugindir):
         if plugins is not None:
             for plugin in plugins:
-                logging.debug('loading plugin {} from {}'.format(plugin, plugindir))
+                logging.debug('loading plugin %s from %s', plugin, plugindir)
 
                 fh, path, desc = imp.find_module(plugin, [plugindir])
 
@@ -67,9 +67,9 @@ class Espresso(object):
 
         while True:
             for msg in self.slack_client.rtm_read():
-                logging.debug("Raw message: {}".format(msg))
                 if msg.has_key('type'):
                     if msg['type'] == 'message' and not msg.has_key('subtype'):
+                logging.debug("Raw message: %s", msg)
                         message = Message(User(msg['user'], self.slack_client.server.users.find(msg['user']).name),
                                 self.slack_client.server.channels.find(msg['channel']),
                                 msg['text'])

@@ -11,8 +11,8 @@ import itertools
 def delete_n_messages(res):
     howmany = int(res.match.group('howmany'))
     channel_history = json.loads(res.robot.slack_client.api_call('channels.history',
-        channel = res.msg.channel.id,
-        inclusive = 1))
+        channel=res.msg.channel.id,
+        inclusive=1))
     channel_messages = channel_history['messages']
 
     my_messages = filter(lambda m: ((m.get('type') == 'message') and ('subtype' not in m) and (m['user'] == robot.user.id)), channel_messages)
@@ -20,7 +20,8 @@ def delete_n_messages(res):
     for message in itertools.islice(my_messages, howmany):
         logging.debug("deleting message with content %s", message['text'])
         res.robot.slack_client.api_call("chat.delete",
-            ts = message['ts'],
-            channel = res.msg.channel.id)
+            ts=message['ts'],
+            channel=res.msg.channel.id)
 
-    logging.debug("deleted my last %i messages", howmany)
+    logging.debug("deleted my last %i messages in the channel %s",
+        howmany, res.msg.channel.name)

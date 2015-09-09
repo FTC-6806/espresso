@@ -81,9 +81,9 @@ class Espresso(object):
             time.sleep(.1)
 
     def add_listener(self, ltype, regex, function, **options):
-        if (ltype == ListenerType.heard):
+        if ltype == ListenerType.heard:
             self.listeners.append(Listener(self, regex, function))
-        elif (ltype == ListenerType.heard_with_name):
+        elif ltype == ListenerType.heard_with_name:
             regex = "^(?:\<\@U0A9396LC\>|{})\s*:?\s*".format(self.user.name) + regex
             self.listeners.append(Listener(self, regex, function))
         logging.debug("Added listener of type %s with regex %s calling %s", ltype, regex, function.__name__)

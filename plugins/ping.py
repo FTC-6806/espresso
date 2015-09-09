@@ -19,3 +19,4 @@ def time(res):
 @robot.respond("(?i)DIE")
 def die(res):
     res.send("Goodbye, cruel world.")
+    sys.exit(0)

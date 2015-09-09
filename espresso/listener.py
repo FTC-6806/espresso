@@ -17,5 +17,5 @@ class Listener(object):
     def call(self, message):
         matches = message.match(self.regex)
         if matches:
-            logging.debug("!matched!%s", matches)
+            logging.debug("%s matches %s", message.text, self.regex.pattern)
             self.callback(Response(self.robot, message, matches))

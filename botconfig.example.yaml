@@ -2,6 +2,7 @@ debug: true
 debug_console: false
 logging:
   level: DEBUG
+brainstate_location: brainstate.json
 plugin_dir: plugins/
 plugins:
   - shipit
@@ -9,4 +10,6 @@ plugins:
   - deletemessages
   - ping
   - hello
+  - thequestion
+  - notebook
 api_token: 'foobar'

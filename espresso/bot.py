@@ -5,11 +5,12 @@ import time
 
 from slackclient import SlackClient
 
-from listener import Listener
-from listener import ListenerType
-from message import Message
-from repl import EspressoConsole
-from user import User
+from .listener import Listener
+from .listener import ListenerType
+from .message import Message
+from .repl import EspressoConsole
+from .user import User
+
 
 class Espresso(object):
     """The bot's main class.

@@ -3,6 +3,8 @@
 
 import dateutil.parser
 from espresso.main import robot
+import logging
+
 from docx import Document
 
 
@@ -12,7 +14,7 @@ def got_announcement(res):
     announcement = res.match.group('announcement')
     user = res.msg.user.name
 
-    res.reply(res.msg.user, "Got Announcement for date {}: {}".format(date, announcement))
+    logging.debug("Got Announcement for date %s: %s", date, announcement)
     res.robot.brain.db.insert({"plugin": "notebook", "type": "announcement",
         "date": date.isoformat(), "announcement": announcement,
         "user": user, "channel": res.msg.channel.name})

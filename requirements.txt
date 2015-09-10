@@ -4,5 +4,5 @@ pyyaml
 websocket-client
 slackclient
 enum34
-docx
+python-docx
 tinydb

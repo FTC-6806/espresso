@@ -2,10 +2,11 @@
 # handles notebook creation
 
 import dateutil.parser
-from espresso.main import robot
 import logging
 
 from docx import Document
+from espresso.main import robot
+from tinydb import where
 
 
 @robot.hear('(?i)Announcement for (?P<date>[0-9]?[0-9]\/[0-9]?[0-9]\/[0-9][0-9]): (?P<announcement>.*)')

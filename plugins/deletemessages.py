@@ -2,10 +2,11 @@
 # Very useful for cleaning up after testing
 # Manually interacts with Slack's API through res.robot.slack_client.api_call
 
-from espresso.main import robot
+import itertools
 import json
 import logging
-import itertools
+
+from espresso.main import robot
 
 @robot.respond("(?i)delete your last (?P<howmany>[0-9]*) messages")
 def delete_n_messages(res):

@@ -1,4 +1,5 @@
-from tinydb import TinyDB, where
+from tinydb import TinyDB
+from tinydb import where
 
 class Brain(object):
     def __init__(self, db_location):

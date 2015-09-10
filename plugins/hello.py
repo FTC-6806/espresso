@@ -1,6 +1,7 @@
 # Be friendly
 
 import random
+
 from espresso.main import robot
 
 hellos = [

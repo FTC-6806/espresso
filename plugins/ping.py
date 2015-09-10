@@ -1,6 +1,6 @@
 # basic "is it alive" tests and simple admin
-import sys
 import datetime
+import sys
 
 from espresso.main import robot
 

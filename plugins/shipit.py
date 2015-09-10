@@ -1,6 +1,7 @@
 # The classic Hubot Shipit script.
 
 import random
+
 from espresso.main import robot
 
 squirrels = [

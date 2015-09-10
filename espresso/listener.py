@@ -1,5 +1,5 @@
-import re
 import logging
+import re
 
 from enum import Enum
 from response import Response

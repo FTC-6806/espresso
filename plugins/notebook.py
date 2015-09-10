@@ -20,3 +20,15 @@ def got_announcement(res):
         "date": date.isoformat(), "announcement": announcement,
         "user": user, "channel": res.msg.channel.name})
 
+@robot.respond('(?i)make a (new )?notebook (entry|template) for (?P<date>[0-9]?[0-9]\/[0-9]?[0-9]\/[0-9][0-9])')
+def make_entry(res):
+    date = dateutil.parser.parse(res.match.group('date'))
+    announcements = res.robot.brain.db.search(
+        (where('plugin') == 'notebook') &
+        (where('type') == 'announcement') & 
+        (where('date') == date.isoformat())
+        )
+
+    res.reply(res.msg.user, announcements)
+
+    # document = Document()

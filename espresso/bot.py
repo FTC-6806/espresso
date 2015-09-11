@@ -68,6 +68,8 @@ class Espresso(object):
             espresso_console = EspressoConsole(locals())
             espresso_console.interact()
 
+        logging.debug("listeners: %s", self.listeners)
+
         while True:
             for msg in self.slack_client.rtm_read():
                 logging.debug("Raw message: %s", msg)
@@ -77,6 +79,7 @@ class Espresso(object):
                                 self.slack_client.server.channels.find(msg['channel']),
                                 msg['text'])
                         for listener in self.listeners:
+                            logging.debug("calling listener %s with %s", listener, message)
                             listener.call(message)
 
             # TODO: take loaded list of plugin callback regexes and check them, then call the callbacks

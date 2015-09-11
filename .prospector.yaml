@@ -1,0 +1,8 @@
+strictness: high
+
+autodetect: false
+
+pep8:
+  disable:
+    - E501
+    - E261

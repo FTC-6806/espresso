@@ -23,12 +23,34 @@ def got_announcement(res):
 @robot.respond('(?i)make a (new )?notebook (entry|template) for (?P<date>\d+/\d+/\d+)')
 def make_entry(res):
     date = dateutil.parser.parse(res.match.group('date'))
-    announcements = res.robot.brain.db.search(
-        (where('plugin') == 'notebook') &
-        (where('type') == 'announcement') & 
-        (where('date') == date.isoformat())
+    logging.debug("date: %s", date)
+    logging.debug("db dump: %s", res.robot.brain.db.all())
+    announcements = res.robot.brain.db.search((where('plugin') == 'notebook')
+        & (where('type') == 'announcement')
+        & (where('date') == date.isoformat())
         )
 
-    res.reply(res.msg.user, announcements)
+    logging.debug("announcements are %s", announcements)
 
-    # document = Document()
+    if announcements != []:
+        document = Document()
+        document.add_page_break()
+        document.add_heading('{date}, the BEC'.format(date=date.strftime('%m/%d/%Y')), level=1)
+        document.add_paragraph('Present team members: <enter them here>')
+        document.add_heading('Announcements:', level=2)
+
+        users = []
+        for announcement in announcements:
+            if announcement['user'] not in users:
+                users.append(announcement['user'])
+
+        logging.debug("users are %s", users)
+
+        for user in sorted(users):
+            real_name = res.robot.slack_client.server.users.find(user).real_name
+            logging.debug("announcing user %s is %s", user, real_name)
+            document.add_paragraph("{}:".format(real_name))
+            for announcement in  filter(lambda a: a['user'] == user, announcements):
+                document.add_paragraph("{}".format(announcement['announcement']), style='ListBullet')
+
+        document.save('test.docx')

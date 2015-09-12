@@ -9,7 +9,7 @@ from espresso.main import robot
 from tinydb import where
 
 
-@robot.hear('(?i)Announcement for (?P<date>[0-9]?[0-9]\/[0-9]?[0-9]\/[0-9][0-9]): (?P<announcement>.*)')
+@robot.hear('(?i)Announcement for (?P<date>\d+/\d+/\d+): (?P<announcement>.*)')
 def got_announcement(res):
     date = dateutil.parser.parse(res.match.group('date'))
     announcement = res.match.group('announcement')
@@ -20,7 +20,7 @@ def got_announcement(res):
         "date": date.isoformat(), "announcement": announcement,
         "user": user, "channel": res.msg.channel.name})
 
-@robot.respond('(?i)make a (new )?notebook (entry|template) for (?P<date>[0-9]?[0-9]\/[0-9]?[0-9]\/[0-9][0-9])')
+@robot.respond('(?i)make a (new )?notebook (entry|template) for (?P<date>\d+/\d+/\d+)')
 def make_entry(res):
     date = dateutil.parser.parse(res.match.group('date'))
     announcements = res.robot.brain.db.search(

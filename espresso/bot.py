@@ -79,7 +79,6 @@ class Espresso(object):
                                 self.slack_client.server.channels.find(msg['channel']),
                                 msg['text'])
                         for listener in self.listeners:
-                            logging.debug("calling listener %s with %s", listener, message)
                             listener.call(message)
 
             # TODO: take loaded list of plugin callback regexes and check them, then call the callbacks

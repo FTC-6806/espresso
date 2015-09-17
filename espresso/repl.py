@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from code import InteractiveConsole
 
+
 class EspressoConsole(InteractiveConsole, object):
     def interact(self, banner = None):
         banner = """███████╗███████╗██████╗ ██████╗ ███████╗███████╗███████╗ ██████╗ 

@@ -74,8 +74,8 @@ class Espresso(object):
                 if 'type' in msg:
                     if msg['type'] == 'message' and 'subtype' not in msg:
                         message = Message(User(msg['user'], self.slack_client.server.users.find(msg['user']).name),
-                                        self.slack_client.server.channels.find(msg['channel']),
-                                        msg['text'])
+                                          self.slack_client.server.channels.find(msg['channel']),
+                                          msg['text'])
                         for listener in self.listeners:
                             listener.call(message)
 
@@ -90,7 +90,7 @@ class Espresso(object):
             self.listeners.append(Listener(self, regex, function))
 
         logging.debug("Added listener of type %s with regex %s calling %s",
-                    ltype, regex, function.__name__)
+                      ltype, regex, function.__name__)
 
     # THESE ARE DECORATORS !!!
     def hear(self, regex, **options):

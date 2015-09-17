@@ -1,5 +1,6 @@
 import logging
 
+
 class Response(object):
     """The object sent back to the callback
     Contains methods for calling senders and responders on Espresso

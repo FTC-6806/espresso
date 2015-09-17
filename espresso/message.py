@@ -1,5 +1,6 @@
 import re
 
+
 class Message(object):
     def __init__(self, user, channel, text):
         self.user = user

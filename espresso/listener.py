@@ -14,6 +14,9 @@ class Listener(object):
         self.regex = re.compile(regex)
         self.callback = callback
 
+    def __repr__(self):
+        return "<Listener regex:{}, callback:{}>".format(self.regex.pattern, self.callback.__name__)
+
     def call(self, message):
         matches = message.match(self.regex)
         if matches:

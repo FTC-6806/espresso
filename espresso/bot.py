@@ -79,7 +79,6 @@ class Espresso(object):
                         for listener in self.listeners:
                             listener.call(message)
 
-            # TODO: take loaded list of plugin callback regexes and check them, then call the callbacks
             time.sleep(.1)
 
     def add_listener(self, ltype, regex, function, **options):

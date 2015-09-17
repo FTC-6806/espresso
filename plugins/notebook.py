@@ -76,8 +76,9 @@ def make_entry(res):
         for user in sorted(users):
             real_name = res.robot.slack_client.server.users.find(user).real_name
             logging.debug("announcing user %s is %s", user, real_name)
-            document.add_paragraph("{}:".format(real_name))
-            for announcement in  filter(lambda a: a['user'] == user, announcements):
-                document.add_paragraph("{}".format(announcement['announcement']), style='ListBullet')
+            document.add_heading("{}:".format(real_name), level=3)
+            for announcement in announcements:
+                if announcement['user'] == user:
+                    document.add_paragraph("{}".format(announcement['announcement']), style='ListBullet')
 
         document.save('test.docx')

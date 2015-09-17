@@ -23,6 +23,30 @@ def got_announcement(res):
         "date": date.isoformat(), "announcement": announcement,
         "user": user, "channel": res.msg.channel.name})
 
+@robot.respond('(?i)backfill announcements for (?P<date>\d+/\d+/\d+)')
+def backfill_announcements(res):
+    target_date = dateutil.parser.parse(res.match.group('date'))
+
+    channel_history = json.loads(res.robot.slack_client.api_call('channels.history',
+        channel=res.robot.slack_client.server.channels.find("announcements").id,
+        inclusive=1))
+    channel_message_type_events = channel_history['messages']
+    channel_messages = filter(lambda m: ((m.get('type') == 'message') and ('subtype' not in m)), channel_message_type_events)
+
+    for m in channel_messages:
+        match = re.search('(?is)Announcement for (?P<date>\d+/\d+/\d+): (?P<announcement>.*)', m['text'])
+        if match:
+            date = dateutil.parser.parse(match.group('date'))
+            announcement = match.group('announcement')
+            user = res.robot.slack_client.server.users.find(m['user']).name
+            if date == target_date:
+                logging.debug("Got Announcement for date %s by user %s: %s", date, user, announcement)
+                res.robot.brain.db.insert({"plugin": "notebook", "type": "announcement",
+                    "date": date.isoformat(), "announcement": announcement,
+                    "user": user, "channel": 'announcements'})
+
+
+
 @robot.respond('(?i)make a (new )?notebook (entry|template) for (?P<date>\d+/\d+/\d+)')
 def make_entry(res):
     date = dateutil.parser.parse(res.match.group('date'))

@@ -50,7 +50,7 @@ def backfill_announcements(res):
 
 
 
-@robot.respond('(?i)make a (new )?notebook (entry|template) for (?P<date>\d+/\d+/\d+)')
+@robot.respond(r'(?i)make a (new )?notebook (entry|template) for (?P<date>\d+/\d+/\d+)')
 def make_entry(res):
     date = dateutil.parser.parse(res.match.group('date'))
     logging.debug("date: %s", date)
@@ -82,6 +82,7 @@ def make_entry(res):
             document.add_heading("{}:".format(real_name), level=3)
             for announcement in announcements:
                 if announcement['user'] == user:
-                    document.add_paragraph("{}".format(announcement['announcement']), style='ListBullet')
+                    document.add_paragraph("{}".format(announcement['announcement']),
+                                           style='ListBullet')
 
         document.save('test.docx')

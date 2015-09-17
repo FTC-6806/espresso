@@ -8,7 +8,7 @@ import logging
 
 from espresso.main import robot
 
-@robot.respond("(?i)delete your last (?P<howmany>[0-9]*) messages")
+@robot.respond(r"(?i)delete your last (?P<howmany>[0-9]*) messages")
 def delete_n_messages(res):
     howmany = int(res.match.group('howmany'))
     channel_history = json.loads(res.robot.slack_client.api_call('channels.history',

@@ -20,6 +20,6 @@ squirrels = [
   "https://dl.dropboxusercontent.com/u/602885/github/squirrelmobster.jpeg",
 ]
 
-@robot.hear('(?i)ship\s*it')
+@robot.hear(r'(?i)ship\s*it')
 def ship_it(res):
     res.send(random.choice(squirrels))

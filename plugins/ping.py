@@ -4,19 +4,19 @@ import sys
 
 from espresso.main import robot
 
-@robot.respond("(?i)PING")
+@robot.respond(r"(?i)PING")
 def ping(res):
     res.send("PONG")
 
-@robot.respond("(?i)ECHO (?P<echotext>.*)")
+@robot.respond(r"(?i)ECHO (?P<echotext>.*)")
 def echo(res):
     res.send(res.match.group('echotext'))
 
-@robot.respond("(?i)TIME\?*")
+@robot.respond(r"(?i)TIME\?*")
 def time(res):
     res.send("Server time is {}".format(datetime.datetime.now().ctime()))
 
-@robot.respond("(?i)DIE")
+@robot.respond(r"(?i)DIE")
 def die(res):
     res.send("Goodbye, cruel world.")
     sys.exit(0)

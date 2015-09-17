@@ -11,6 +11,6 @@ hellos = [
     "Hallo!"
 ]
 
-@robot.respond('(?i)(hi)|(hello)|(howdy)|(hallo)')
+@robot.respond(r'(?i)(hi)|(hello)|(howdy)|(hallo)')
 def hello(res):
     res.reply(res.msg.user, random.choice(hellos))

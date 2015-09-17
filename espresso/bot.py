@@ -73,7 +73,10 @@ class Espresso(object):
                 logging.debug("Raw message: %s", msg)
                 if 'type' in msg:
                     if msg['type'] == 'message' and 'subtype' not in msg:
-                        message = Message(User(msg['user'], self.slack_client.server.users.find(msg['user']).name),
+                        message = Message(
+                                          User(msg['user'],
+                                               self.slack_client.server.users.find(msg['user']).name
+                                               ),
                                           self.slack_client.server.channels.find(msg['channel']),
                                           msg['text'])
                         for listener in self.listeners:

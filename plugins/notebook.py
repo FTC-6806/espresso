@@ -4,6 +4,9 @@
 import dateutil.parser
 import logging
 
+import json
+import re
+
 from docx import Document
 from espresso.main import robot
 from tinydb import where

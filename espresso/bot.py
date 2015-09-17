@@ -46,13 +46,13 @@ class Espresso(object):
             for plugin in plugins:
                 logging.debug('loading plugin %s from %s', plugin, plugindir)
 
-                fh, path, desc = imp.find_module(plugin, [plugindir])
+                fp, path, desc = imp.find_module(plugin, [plugindir])
 
                 try:
-                    imp.load_module(plugin, fh, path, desc)
+                    imp.load_module(plugin, fp, path, desc)
                 finally:
-                    if fh:
-                        fh.close()
+                    if fp:
+                        fp.close()
 
     def brew(self):
         """Run the bot.

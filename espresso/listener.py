@@ -4,9 +4,11 @@ import re
 from enum import Enum
 from response import Response
 
+
 class ListenerType(Enum):
     heard = 1
     heard_with_name = 2
+
 
 class Listener(object):
     def __init__(self, robot, regex, callback):

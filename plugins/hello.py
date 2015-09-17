@@ -4,7 +4,7 @@ import random
 
 from espresso.main import robot
 
-hellos = [
+HELLOS = [
     "Well hello there!"
     "Hello!",
     "Hi there!",
@@ -13,4 +13,4 @@ hellos = [
 
 @robot.respond(r'(?i)(hi)|(hello)|(howdy)|(hallo)')
 def hello(res):
-    res.reply(res.msg.user, random.choice(hellos))
+    res.reply(res.msg.user, random.choice(HELLOS))

@@ -68,8 +68,6 @@ class Espresso(object):
             espresso_console = EspressoConsole(locals())
             espresso_console.interact()
 
-        logging.debug("listeners: %s", self.listeners)
-
         while True:
             for msg in self.slack_client.rtm_read():
                 logging.debug("Raw message: %s", msg)

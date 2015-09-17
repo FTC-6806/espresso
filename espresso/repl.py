@@ -3,7 +3,7 @@ from code import InteractiveConsole
 
 
 class EspressoConsole(InteractiveConsole, object):
-    def interact(self, banner = None):
+    def interact(self, banner=None):
         banner = """███████╗███████╗██████╗ ██████╗ ███████╗███████╗███████╗ ██████╗ 
 ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝██╔═══██╗
 █████╗  ███████╗██████╔╝██████╔╝█████╗  ███████╗███████╗██║   ██║

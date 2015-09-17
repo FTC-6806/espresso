@@ -79,7 +79,8 @@ class Espresso(object):
                         for listener in self.listeners:
                             listener.call(message)
 
-            time.sleep(.1)
+            time.sleep(.1) # sleep for 1/10 sec to not peg the cpu
+            # with this basic async implementation
 
     def add_listener(self, ltype, regex, function, **options):
         if ltype == ListenerType.heard:

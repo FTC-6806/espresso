@@ -9,7 +9,7 @@ from espresso.main import robot
 from tinydb import where
 
 
-@robot.hear('(?i)Announcement for (?P<date>\d+/\d+/\d+): (?P<announcement>.*)')
+@robot.hear('(?is)Announcement for (?P<date>\d+/\d+/\d+): (?P<announcement>.*)')
 def got_announcement(res):
     date = dateutil.parser.parse(res.match.group('date'))
     announcement = res.match.group('announcement')

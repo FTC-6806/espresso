@@ -11,8 +11,10 @@ from docx import Document
 from espresso.main import robot
 from tinydb import where
 
+ANNOUNCEMENT_REGEX = r'(?is)Announcement for (?P<date>\d+/\d+/\d+): (?P<announcement>.*)'
 
-@robot.hear('(?is)Announcement for (?P<date>\d+/\d+/\d+): (?P<announcement>.*)')
+
+@robot.hear(ANNOUNCEMENT_REGEX)
 def got_announcement(res):
     date = dateutil.parser.parse(res.match.group('date'))
     announcement = res.match.group('announcement')
@@ -23,7 +25,7 @@ def got_announcement(res):
         "date": date.isoformat(), "announcement": announcement,
         "user": user, "channel": res.msg.channel.name})
 
-@robot.respond('(?i)backfill announcements for (?P<date>\d+/\d+/\d+)')
+@robot.respond(r'(?i)backfill announcements for (?P<date>\d+/\d+/\d+)')
 def backfill_announcements(res):
     target_date = dateutil.parser.parse(res.match.group('date'))
 
@@ -34,13 +36,14 @@ def backfill_announcements(res):
     channel_messages = filter(lambda m: ((m.get('type') == 'message') and ('subtype' not in m)), channel_message_type_events)
 
     for m in channel_messages:
-        match = re.search('(?is)Announcement for (?P<date>\d+/\d+/\d+): (?P<announcement>.*)', m['text'])
+        match = re.search(ANNOUNCEMENT_REGEX, m['text'])
         if match:
             date = dateutil.parser.parse(match.group('date'))
             announcement = match.group('announcement')
             user = res.robot.slack_client.server.users.find(m['user']).name
             if date == target_date:
-                logging.debug("Got Announcement for date %s by user %s: %s", date, user, announcement)
+                logging.debug("Got Announcement for date %s by user %s: %s",
+                              date, user, announcement)
                 res.robot.brain.db.insert({"plugin": "notebook", "type": "announcement",
                     "date": date.isoformat(), "announcement": announcement,
                     "user": user, "channel": 'announcements'})

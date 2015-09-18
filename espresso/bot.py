@@ -111,5 +111,4 @@ class Espresso(object):
 
     def send(self, message, channel):
         logging.debug("Send message %s to #%s", message, channel)
-        logging.debug("message type: %s ; channel type %s", type(message), type(channel))
         self.slack_client.server.channels.find(channel).send_message(message)

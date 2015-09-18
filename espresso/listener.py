@@ -11,10 +11,11 @@ class ListenerType(Enum):
 
 
 class Listener(object):
-    def __init__(self, robot, regex, callback):
+    def __init__(self, robot, regex, callback, options):
         self.robot = robot
         self.regex = re.compile(regex)
         self.callback = callback
+        self.options = options
 
     def __repr__(self):
         return "<Listener regex:{}, callback:{}>".format(self.regex.pattern, self.callback.__name__)

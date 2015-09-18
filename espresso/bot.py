@@ -83,14 +83,14 @@ class Espresso(object):
             time.sleep(.1) # sleep for 1/10 sec to not peg the cpu
             # with this basic async implementation
 
-    def add_listener(self, ltype, regex, function, **options):
+    def add_listener(self, ltype, regex, function, options):
         if ltype == ListenerType.heard:
-            self.listeners.append(Listener(self, regex, function))
+            self.listeners.append(Listener(self, regex, function, options))
         elif ltype == ListenerType.heard_with_name:
             regex = r"^(?:\<\@{uid}\>|{uname})\s*:?\s*".format(
                 uid=self.user.uid,
                 uname=self.user.name) + regex
-            self.listeners.append(Listener(self, regex, function))
+            self.listeners.append(Listener(self, regex, function, options))
 
         logging.debug("Added listener of type %s with regex %s calling %s",
                       ltype, regex, function.__name__)
@@ -98,13 +98,13 @@ class Espresso(object):
     # THESE ARE DECORATORS !!!
     def hear(self, regex, **options):
         def decorator(f):
-            self.add_listener(ListenerType.heard, regex, f, **options)
+            self.add_listener(ListenerType.heard, regex, f, options)
             return f
         return decorator
 
     def respond(self, regex, **options):
         def decorator(f):
-            self.add_listener(ListenerType.heard_with_name, regex, f, **options)
+            self.add_listener(ListenerType.heard_with_name, regex, f, options)
             return f
         return decorator
     # END DECORATORS !!!

@@ -1,7 +1,7 @@
 import logging
 import yaml
 
-from bot import Espresso
+from .bot import Espresso
 
 
 config = yaml.load(file('botconfig.yaml', 'r'))

@@ -2,7 +2,7 @@ import logging
 import re
 
 from enum import Enum
-from response import Response
+from .response import Response
 
 
 class ListenerType(Enum):

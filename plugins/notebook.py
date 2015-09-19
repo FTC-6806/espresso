@@ -89,10 +89,8 @@ def make_entry(res):
         document.add_heading('{date}, the BEC'.format(date=date.strftime('%m/%d/%Y')), level=1)
         document.add_heading('Announcements:', level=2)
 
-        users = []
-        for announcement in announcements:
-            if announcement['user'] not in users:
-                users.append(announcement['user'])
+        # pull out a list of all the users that had announced
+        users = set(map(lambda a: a['user'], announcements))
 
         logging.debug("users are %s", users)
 

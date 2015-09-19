@@ -83,8 +83,11 @@ def make_entry(res):
 
     logging.debug("announcements are %s", announcements)
 
+    # if there actually _are_ announcements for that date
     if announcements != []:
+        # create a new docx document object
         document = Document()
+        # and fill in a bunch of boilerplate
         document.add_page_break()
         document.add_heading('{date}, the BEC'.format(date=date.strftime('%m/%d/%Y')), level=1)
         document.add_heading('Announcements:', level=2)
@@ -94,13 +97,19 @@ def make_entry(res):
 
         logging.debug("users are %s", users)
 
+        # for each user who has announced
         for user in sorted(users):
+            # get their real name
             real_name = res.robot.slack_client.server.users.find(user).real_name
             logging.debug("announcing user %s is %s", user, real_name)
+            # create a new heading for them
             document.add_paragraph("{}:".format(real_name))
+            # for every one of their posts
             for announcement in announcements:
                 if announcement['user'] == user:
+                    # create a bullet-point for that announcement
                     document.add_paragraph("{}".format(announcement['announcement']),
                                            style='ListBullet')
 
+        # TODO: onedrive
         document.save('test.docx')

@@ -87,7 +87,6 @@ def make_entry(res):
         document = Document()
         document.add_page_break()
         document.add_heading('{date}, the BEC'.format(date=date.strftime('%m/%d/%Y')), level=1)
-        document.add_paragraph('Present team members: <enter them here>')
         document.add_heading('Announcements:', level=2)
 
         users = []

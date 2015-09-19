@@ -113,3 +113,6 @@ def make_entry(res):
 
         # TODO: onedrive
         document.save('test.docx')
+    else:
+        # let the user know that that meeting date doesn't exist
+        res.reply(res.msg.user, "No announcements for date {}".format(date.strftime('%m/%d/%Y')))

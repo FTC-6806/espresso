@@ -9,7 +9,9 @@ plugins:
   - brew
   - deletemessages
   - ping
-  - hello
   - thequestion
   - notebook
+plugin_config:
+  notebook:
+    file: notebook.docx
 api_token: 'foobar'

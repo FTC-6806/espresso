@@ -112,7 +112,7 @@ def make_entry(res):
                                            style='ListBullet')
 
         # TODO: onedrive
-        document.save('test.docx')
+        document.save(res.robot.config['plugin_config']['notebook']['file'])
     else:
         # let the user know that that meeting date doesn't exist
         res.reply(res.msg.user, "No announcements for date {}".format(date.strftime('%m/%d/%Y')))

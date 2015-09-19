@@ -1,6 +1,7 @@
 botconfig.yaml
 brainstate.json
 test.docx
+notebook.docx
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -125,4 +126,3 @@ tramp
 Session.vim
 .netrwhist
 *~
-

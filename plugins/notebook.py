@@ -70,9 +70,12 @@ def backfill_announcements(res):
 # notebook creation responder
 @robot.respond(r'(?i)make a (new )?notebook (entry|template) for (?P<date>\d+/\d+/\d+)')
 def make_entry(res):
+    # pull out the target notebook date from the regex
     date = dateutil.parser.parse(res.match.group('date'))
-    logging.debug("date: %s", date)
-    logging.debug("db dump: %s", res.robot.brain.db.all())
+    logging.debug("new notebook target date: %s", date)
+
+    # query the database for announcements from the specified date
+    # TODO: build a new brain api and refactor?
     announcements = res.robot.brain.db.search((where('plugin') == 'notebook')
         & (where('type') == 'announcement')
         & (where('date') == date.isoformat())

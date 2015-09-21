@@ -12,4 +12,8 @@ plugins:
   - hello
   - thequestion
   - notebook
+plugin_config:
+  notebook:
+    file: notebook.docx
+    append: false
 api_token: 'foobar'

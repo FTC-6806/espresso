@@ -1,7 +1,4 @@
-strictness: high
-
 autodetect: false
-
 pep8:
   disable:
     - invalid-name

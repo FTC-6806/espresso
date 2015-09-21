@@ -9,7 +9,6 @@ plugins:
   - brew
   - deletemessages
   - ping
-  - hello
   - thequestion
   - notebook
 plugin_config:

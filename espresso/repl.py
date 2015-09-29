@@ -3,6 +3,7 @@ from code import InteractiveConsole
 
 
 class EspressoConsole(InteractiveConsole, object):
+    """The REPL class, for an in-terminal debug REPL"""
     def interact(self, banner=None):
         banner = """███████╗███████╗██████╗ ██████╗ ███████╗███████╗███████╗ ██████╗ 
 ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝██╔═══██╗

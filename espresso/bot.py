@@ -30,9 +30,11 @@ class Espresso(PluginAPI, object):
         self.brain = Brain(config['brainstate_location'])
 
     def connect(self):
-        """Helper method to connect to Slack.
+        """Connects to Slack.
+
         Creates a new SlackClient with ``self.api_token``.
         """
+        # TODO: Refactor for abstract MessagingServices.
 
         self.slack_client = SlackClient(self.api_token)
         self.slack_client.rtm_connect() # connect to the real-time messaging system
@@ -42,6 +44,13 @@ class Espresso(PluginAPI, object):
         logging.info("I am @%s, uid %s", self.user.name, self.user.uid)
 
     def load_plugins(self, plugins, plugindir):
+        """Loads specified plugins from the specified plugin directory.
+
+        Args:
+            plugins: plugins to load
+            plugindir: directory to load plugins from
+        """
+
         if plugins is not None:
             for plugin in plugins:
                 logging.debug('loading plugin %s from %s', plugin, plugindir)
@@ -56,7 +65,8 @@ class Espresso(PluginAPI, object):
 
     def brew(self):
         """Run the bot.
-        Starts an infinite processing loop.
+
+        Starts an infinite processing/event loop.
         """
 
         logging.info("starting the bot")
@@ -77,13 +87,23 @@ class Espresso(PluginAPI, object):
                                                self.slack_client.server.users.find(msg['user']).name),
                                           self.slack_client.server.channels.find(msg['channel']),
                                           msg['text'])
+
                         for listener in self.listeners:
                             listener.call(message)
 
-            time.sleep(.1) # sleep for 1/10 sec to not peg the cpu
+            # sleep for 1/10 sec to not peg the cpu
             # with this basic async implementation
+            time.sleep(.1)
 
     def add_listener(self, ltype, regex, function, options):
+        """Adds a listener listening for something from the messaging system.
+
+        Args:
+            ltype: the type of the regex.
+            regex: a regex string identifying what to listen for.
+            function: the callback to call if the regex matches.
+            options: a dict of options to pass on.
+        """
         if ltype == ListenerType.heard:
             self.listeners.append(Listener(self, regex, function, options))
         elif ltype == ListenerType.heard_with_name:
@@ -96,5 +116,7 @@ class Espresso(PluginAPI, object):
                       ltype, regex, function.__name__)
 
     def send(self, message, channel):
+        """Send a message to the messaging system."""
+
         logging.debug("Send message %s to #%s", message, channel)
         self.slack_client.server.channels.find(channel).send_message(message)

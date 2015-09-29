@@ -1,0 +1,5 @@
+strictness: medium
+autodetect: false
+pep8:
+  disable:
+    - invalid-name

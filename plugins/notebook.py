@@ -85,9 +85,14 @@ def make_entry(res):
 
     # if there actually _are_ announcements for that date
     if announcements != []:
-        # create a new docx document object
-        document = Document()
-        # and fill in a bunch of boilerplate
+        document = None
+        if res.robot.config['plugin_config']['notebook']['append']:
+            document = Document(res.robot.config['plugin_config']['notebook']['file'])
+        else:
+            # create a new docx document object
+            document = Document()
+
+        # fill in a bunch of boilerplate
         document.add_page_break()
         document.add_heading('{date}, the BEC'.format(date=date.strftime('%m/%d/%Y')), level=1)
         document.add_heading('Announcements:', level=2)

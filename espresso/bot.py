@@ -11,13 +11,13 @@ from .listener import ListenerType
 from .message import Message
 from .repl import EspressoConsole
 from .user import User
+from .plugin_api import PluginAPI
 
 
-class Espresso(object):
-    """The bot's main class.
-    Handles connections and all the things.
-    Delegates to plugin files.
-    The plugin API is also implemented on the bot, they're all decorators.
+class Espresso(PluginAPI, object):
+    """The bot's main class, responsible for event loop, callbacks, and messaging connection.
+
+    The plugin API's decorators are mixed in to this class.
     """
 
     def __init__(self, config):
@@ -94,20 +94,6 @@ class Espresso(object):
 
         logging.debug("Added listener of type %s with regex %s calling %s",
                       ltype, regex, function.__name__)
-
-    # THESE ARE DECORATORS !!!
-    def hear(self, regex, **options):
-        def decorator(f):
-            self.add_listener(ListenerType.heard, regex, f, options)
-            return f
-        return decorator
-
-    def respond(self, regex, **options):
-        def decorator(f):
-            self.add_listener(ListenerType.heard_with_name, regex, f, options)
-            return f
-        return decorator
-    # END DECORATORS !!!
 
     def send(self, message, channel):
         logging.debug("Send message %s to #%s", message, channel)

@@ -3,8 +3,6 @@ import json
 import logging
 import time
 
-from slackclient import SlackClient
-
 from .brain import Brain
 from .listener import Listener
 from .listener import ListenerType
@@ -12,6 +10,7 @@ from .message import Message
 from .repl import EspressoConsole
 from .user import User
 from .plugin_api import PluginAPI
+from .chat_services.slack import SlackChatAdaptor
 
 
 class Espresso(PluginAPI, object):
@@ -24,23 +23,16 @@ class Espresso(PluginAPI, object):
         self.config = config
         self.api_token = config['api_token']
         self.debug = config['debug']
-        self.slack_client = None
+        self.network_client = SlackChatAdaptor(config)
         self.listeners = []
         self.user = None
         self.brain = Brain(config['brainstate_location'])
 
     def connect(self):
-        """Connects to Slack.
+        """Connects to a chat network."""
 
-        Creates a new SlackClient with ``self.api_token``.
-        """
-        # TODO: Refactor for abstract MessagingServices.
-
-        self.slack_client = SlackClient(self.api_token)
-        self.slack_client.rtm_connect() # connect to the real-time messaging system
-
-        slack_test = json.loads(self.slack_client.api_call('auth.test'))
-        self.user = User(slack_test['user_id'], slack_test['user'])
+        self.network_client.connect()
+        self.user = self.network_client.bot_user
         logging.info("I am @%s, uid %s", self.user.name, self.user.uid)
 
     def load_plugins(self, plugins, plugindir):
@@ -79,7 +71,7 @@ class Espresso(PluginAPI, object):
             espresso_console.interact()
 
         while True:
-            for msg in self.slack_client.rtm_read():
+            for msg in self.network_client.read_stream():
                 logging.debug("Raw message: %s", msg)
                 if 'type' in msg:
                     if msg['type'] == 'message' and 'subtype' not in msg:
@@ -119,4 +111,4 @@ class Espresso(PluginAPI, object):
         """Send a message to the messaging system."""
 
         logging.debug("Send message %s to #%s", message, channel)
-        self.slack_client.server.channels.find(channel).send_message(message)
+        self.network_client.send(message, channel)

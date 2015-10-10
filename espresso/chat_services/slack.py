@@ -22,6 +22,10 @@ class SlackChatAdaptor(object):
 	def bot_user(self):
 	    return self._bot_user
 
+	@property
+	def wrapped_client(self):
+	    return self.slack_client
+
 	def read_stream(self):
 		return self.slack_client.rtm_read()
 

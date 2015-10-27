@@ -13,11 +13,11 @@ class ListenerType(Enum):
 class Listener(object):
     """Listens for a message matching a regex, and calls a callback when the regex matches."""
 
-    def __init__(self, robot, regex, callback, options = {}):
+    def __init__(self, robot, regex, callback, options = None):
         self.robot = robot
         self.regex = re.compile(regex) # compile the regex
         self.callback = callback
-        self.options = options
+        self.options = options or {}
 
     def __repr__(self):
         return "<Listener regex:{}, callback:{}>".format(self.regex.pattern, self.callback.__name__)

@@ -82,7 +82,7 @@ class Espresso(PluginAPI, object):
             for msg in self.slack_client.rtm_read():
                 logging.debug("Raw message: %s", msg)
                 if 'type' in msg:
-                    if msg['type'] == 'message' and 'subtype' not in msg:
+                    if msg['type'] == 'message' and 'subtype' not in msg and not msg['user'] == self.user.uid:
                         message = Message(User(msg['user'],
                                                self.slack_client.server.users.find(msg['user']).name),
                                           self.slack_client.server.channels.find(msg['channel']),
